@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0a2345">
+<title>Guruji AI</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#06152f;color:#f0f6ff;font-family:system-ui,sans-serif}
+.app{max-width:520px;margin:auto;min-height:100vh;display:flex;flex-direction:column;background:linear-gradient(160deg,#06152f,#0a2345)}
+header{padding:22px 18px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #21456e}
+.avatar{width:50px;height:50px;border-radius:50%;background:#147fe5;display:grid;place-items:center;font-size:26px}
+h1{font-size:24px;margin:0}small{color:#7ed6ff}
+main{flex:1;padding:18px;overflow:auto}.msg{padding:14px 15px;margin:10px 0;max-width:90%;border-radius:18px;line-height:1.55;white-space:pre-wrap}.bot{background:#12365b;border:1px solid #225985;border-bottom-left-radius:5px}.user{margin-left:auto;background:#087fce;border-bottom-right-radius:5px}
+.quick{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}.quick button{background:#12365b;color:#b9e6ff;border:1px solid #2a5b87;border-radius:18px;padding:9px 11px}
+footer{padding:13px;border-top:1px solid #21456e}.inputrow{display:flex;gap:8px}.inputrow input{flex:1;min-width:0;background:#102d4d;color:white;border:1px solid #2a5b87;border-radius:25px;padding:13px;font-size:15px}.inputrow button{border:0;border-radius:50%;width:48px;background:#159af0;color:white;font-size:22px}
+.note{text-align:center;color:#6688a8;font-size:11px;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="avatar">🤖</div><div><h1>Guruji <span style="color:#29b6ff">AI</span></h1><small>● आपका अपना AI साथी</small></div></header>
+<main id="chat"><div class="msg bot">नमस्ते गुरुजी! 🙏 मैं आपका छोटा भाई Guruji AI हूँ। आज मैं आपकी किस काम में मदद करूँ?</div></main>
+<footer>
+<div style="font-size:12px;color:#8eb6d7">जल्दी चुनें</div>
+<div class="quick"><button data-q="मुझे AI सीखना है">🤖 AI सीखें</button><button data-q="मुझे पढ़ाई में मदद चाहिए">📚 पढ़ाई</button><button data-q="मुझे मोबाइल सीखना है">📱 मोबाइल</button></div>
+<div class="inputrow"><input id="input" placeholder="गुरुजी, कुछ पूछिए..."><button id="send">➤</button></div>
+<div class="note">यह शुरुआती डेमो है • असली AI अभी कनेक्ट नहीं है</div>
+</footer>
+</div>
+<script>
+const chat=document.querySelector('#chat'),input=document.querySelector('#input');
+function add(t,who){let d=document.createElement('div');d.className='msg '+who;d.textContent=t;chat.appendChild(d);chat.scrollTop=chat.scrollHeight}
+function answer(q){let s=q.toLowerCase(),a='गुरुजी, मैं अभी शुरुआती डेमो हूँ। असली AI जोड़ने के बाद मैं और सवालों के जवाब दे पाऊँगा।';
+if(s.includes('ai'))a='गुरुजी, AI का मतलब Artificial Intelligence यानी कृत्रिम बुद्धिमत्ता है। यह कंप्यूटर को सीखने और सवालों के जवाब देने में मदद करती है।';
+else if(s.includes('पढ़'))a='गुरुजी, पढ़ाई में मैं आपकी मदद कर सकता हूँ। अपना विषय और सवाल बताइए।';
+else if(s.includes('मोबाइल'))a='गुरुजी, मोबाइल सीखने के लिए हम एक-एक स्टेप करेंगे। आपको क्या सीखना है?';
+else if(s.includes('नमस्ते')||s.includes('हलो')||s.includes('hello'))a='नमस्ते गुरुजी! ❤️ बताइए, आज क्या करना है?';
+add(a,'bot')}
+function go(){let q=input.value.trim();if(!q)return;add(q,'user');input.value='';answer(q)}
+document.querySelector('#send').onclick=go;input.addEventListener('keydown',e=>{if(e.key==='Enter')go()});
+document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{input.value=b.dataset.q;go()});
+</script>
+</body>
+</html>
